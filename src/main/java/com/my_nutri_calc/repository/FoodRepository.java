@@ -1,5 +1,9 @@
 package com.my_nutri_calc.repository;
 
-public class FoodRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.my_nutri_calc.model.Food;
+
+public interface FoodRepository extends JpaRepository<Food, Long> {
     
 }
