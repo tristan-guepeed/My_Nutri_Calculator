@@ -19,6 +19,7 @@ public class User {
     private String email;
     private String firstName;
     private String lastName;
+    private String role;
 
     public UUID getId() {
         return id;
@@ -66,5 +67,13 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
