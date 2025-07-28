@@ -53,4 +53,6 @@ public class NutritionInfo {
         this(proteins, carbs, fats, 0.0);
     }
 
+    public NutritionInfo() {}
+
 }

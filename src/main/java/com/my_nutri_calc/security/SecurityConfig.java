@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.my_nutri_calc.service.CustomUserDetailsService;
 
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
+    private final JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -30,8 +32,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> 
                     auth.requestMatchers("/api/users/login", "/api/users/register").permitAll()
                         .anyRequest().authenticated())
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {

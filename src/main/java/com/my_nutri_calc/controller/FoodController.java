@@ -46,7 +46,7 @@ public class FoodController {
             @AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetails
     ) {
         String usernameFromToken = userDetails.getUsername();
-    
+
         User userFromToken = userRepository.findByUsername(usernameFromToken);
         if (userFromToken == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
@@ -59,7 +59,7 @@ public class FoodController {
         UUID adminUuid = UUID.fromString(adminUuidString);
         List<Food> userFoods = foodRepository.findByCreatedById(userId);
         List<Food> adminFoods = foodRepository.findByCreatedById(adminUuid);
-    
+
         List<Food> combined = new ArrayList<>();
         combined.addAll(adminFoods);
         combined.addAll(userFoods);

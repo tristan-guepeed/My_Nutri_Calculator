@@ -69,10 +69,6 @@ public class UserController {
     ) {
         String usernameFromToken = userDetails.getUsername();
 
-        if (!usernameFromToken.equals(user.getUsername())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not authorized to update this user");
-        }
-
         User existingUser = userRepository.findByUsername(usernameFromToken);
         if (existingUser == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
