@@ -1,5 +1,7 @@
 # 🥗 MyNutriCalc – Application de Suivi Nutritionnel
 
+> 🚧 **IMPORTANT : LE BACKEND EST TERMINÉ ET FONCTIONNEL, MAIS LE FRONT-END EST EN COURS DE DÉVELOPPEMENT ET NON ACCESSIBLE POUR LE MOMENT !** 🚧
+
 # Sommaire
 
 - [Présentation du projet](#présentation-du-projet)
@@ -20,7 +22,7 @@
 
 ## Présentation du projet
 
-Ce projet est une application backend (front en développement) développée avec Spring Boot, destinée à la gestion de la nutrition et du suivi alimentaire des utilisateurs. 
+Ce projet est une application développée avec Spring Boot, destinée à la gestion de la nutrition et du suivi alimentaire des utilisateurs. 
 
 Elle permet aux utilisateurs de créer, modifier et consulter des repas personnalisés, de tenir un journal alimentaire quotidien, et de gérer leur profil utilisateur.
 
