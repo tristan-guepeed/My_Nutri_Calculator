@@ -17,6 +17,7 @@
   - [2. /meals – Gestion des repas](#2-meals-–-gestion-des-repas)
   - [3. /diary – Journal alimentaire (suivi par date, utilisateur)](#3-diary-–-journal-alimentaire-suivi-par-date-utilisateur)
   - [4. /users – Gestion des utilisateurs & authentification](#4-users-–-gestion-des-utilisateurs--authentification)
+- [📌 Historique des versions](📌-historique-des-versions)
 - [Auteur](#auteur)
 
 
@@ -149,6 +150,12 @@ Base URL : /api
 | DELETE  | `/api/users/delete`   | Suppression du compte utilisateur connecté    | USER ou ADMIN    |
 | GET     | `/api/users/me`       | Récupérer les infos de l’utilisateur connecté | USER ou ADMIN    |
 | GET     | `/api/users/{uuid}`   | Récupérer un utilisateur par son UUID         | ADMIN uniquement |
+
+## 📌 Historique des versions
+
+| Version | Date       | Description                                                                 |
+|---------|------------|-----------------------------------------------------------------------------|
+| 1.0.0   | 2025-08-01 | 🎉 Première version stable du backend : gestion complète des users, aliments, repas et journal. |
 
 ## Auteur
 
