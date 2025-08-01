@@ -30,7 +30,7 @@ public class NutritionCalculator {
         return new NutritionInfo(totalProtein, totalCarbs, totalFats, totalCalories);
     }
 
-    public NutritionInfo calculateDiaryTotal(List<Meal> meals) {
+    public static NutritionInfo calculateDiaryTotal(List<Meal> meals) {
         double totalProteins = 0;
         double totalCarbs = 0;
         double totalFats = 0;
