@@ -3,6 +3,7 @@ package com.my_nutri_calc.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.my_nutri_calc.model.Nutrition.NutritionInfo;
 
 import jakarta.persistence.CascadeType;
@@ -29,6 +30,7 @@ public class Meal {
     private String name;
 
     @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<MealItem> mealItems = new ArrayList<>();
 
     @ManyToOne

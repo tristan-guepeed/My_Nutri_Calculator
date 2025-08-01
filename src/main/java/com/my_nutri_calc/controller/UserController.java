@@ -12,9 +12,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,7 +64,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<?> updateUser(
         @RequestBody User user,
         @AuthenticationPrincipal UserDetails userDetails
@@ -98,7 +100,7 @@ public class UserController {
 
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<String> deleteUser(@AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
         User existingUser = userRepository.findByUsername(username);

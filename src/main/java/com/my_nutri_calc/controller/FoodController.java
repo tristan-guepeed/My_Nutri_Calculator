@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +30,7 @@ import com.my_nutri_calc.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("api/food")
+@RequestMapping("api/foods")
 @RequiredArgsConstructor
 public class FoodController {
     
@@ -57,6 +58,11 @@ public class FoodController {
         }
     
         UUID adminUuid = UUID.fromString(adminUuidString);
+
+        if (userId.equals(adminUuid)) {
+            return ResponseEntity.ok(foodRepository.findByCreatedById(adminUuid));
+        }
+
         List<Food> userFoods = foodRepository.findByCreatedById(userId);
         List<Food> adminFoods = foodRepository.findByCreatedById(adminUuid);
 
@@ -89,7 +95,7 @@ public class FoodController {
 
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> updateFood(
             @PathVariable Long id,
             @RequestBody Food food,

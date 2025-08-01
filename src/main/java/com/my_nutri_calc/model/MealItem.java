@@ -1,5 +1,7 @@
 package com.my_nutri_calc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +18,7 @@ public class MealItem {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "meal_id")
     private Meal meal;
 
