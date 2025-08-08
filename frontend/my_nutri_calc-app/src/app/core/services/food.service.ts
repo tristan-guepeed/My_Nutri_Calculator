@@ -1,0 +1,39 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import type { Food } from '../models/food.model';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class FoodService {
+  private apiUrl = 'http://localhost:8080/api/foods';
+
+  constructor(private http: HttpClient) {}
+
+  getVisibleFoods(userId: string): Observable<Food[]> {
+    return this.http.get<Food[]>(`${this.apiUrl}/visible/${userId}`);
+  }
+
+  createFood(food: Food): Observable<Food> {
+    return this.http.post<Food>(`${this.apiUrl}/create`, food);
+  }
+
+  updateFood(id: number, food: Food): Observable<Food> {
+    return this.http.put<Food>(`${this.apiUrl}/update/${id}`, food);
+  }
+
+  deleteFood(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
+  }
+
+  uploadImage(id: number, image: File): Observable<void> {
+    const formData = new FormData();
+    formData.append('image', image);
+    return this.http.post<void>(`${this.apiUrl}/${id}/image`, formData);
+  }
+
+  deleteImage(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}/image`);
+  }
+}
