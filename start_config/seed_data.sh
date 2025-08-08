@@ -39,8 +39,18 @@ create_food() {
             \"id\": \"$ADMIN_UUID\"
           }
         }")
-  
+
   echo "$response" | jq -r '.id'
+}
+
+upload_image() {
+  local food_id=$1
+  local image_path=$2
+
+  curl -s -X POST "$API_URL/foods/$food_id/image" \
+    -H "Authorization: Bearer $TOKEN" \
+    -F "image=@$image_path" \
+    -o /dev/null -w "%{http_code}"
 }
 
 declare -A foods=(
@@ -48,7 +58,7 @@ declare -A foods=(
   ["Poulet"]="31 0 3.6 165"
   ["Pomme"]="0.3 14 0.2 52"
   ["Banane"]="1.1 23 0.3 89"
-  ["Fromage"]="25 1.3 33 402"
+  ["Fromage Blanc"]="25 1.3 33 402"
   ["Pain complet"]="8.5 42 2.5 250"
   ["Oeuf"]="13 1 10 143"
   ["Yaourt nature"]="4 6 3 60"
@@ -66,14 +76,50 @@ declare -A foods=(
   ["Poivrons"]="1 6 0.3 29"
 )
 
+declare -A image_files=(
+  ["Riz blanc"]="riz_blanc.webp"
+  ["Poulet"]="poulet.jpg"
+  ["Pomme"]="pomme.png"
+  ["Banane"]="banane.jpg"
+  ["Fromage Blanc"]="fromage_blanc.webp"
+  ["Pain complet"]="pain_complet.jpg"
+  ["Oeuf"]="oeuf.webp"
+  ["Yaourt nature"]="yaourt_nature.jpeg"
+  ["Lentilles cuites"]="lentilles.jpg"
+  ["Steak haché 5%"]="steak_haché.webp"
+  ["Haricots verts"]="haricots_verts.jpg"
+  ["Carottes râpées"]="carottes_rapées.webp"
+  ["Pâtes cuites"]="pâtes.jpg"
+  ["Saumon"]="saumon.jpg"
+  ["Courgettes"]="courgettes.webp"
+  ["Tomates"]="tomate.jpg"
+  ["Avocat"]="avocat.webp"
+  ["Quinoa cuit"]="quinoa.webp"
+  ["Tofu"]="tofu.webp"
+  ["Poivrons"]="poivrons.jpg"
+)
+
 declare -A food_ids
 
-echo "🍽 Creating foods..."
+echo "🍽 Creating foods and uploading images..."
+
 for name in "${!foods[@]}"; do
   values=(${foods[$name]})
   id=$(create_food "$name" "${values[0]}" "${values[1]}" "${values[2]}" "${values[3]}")
   food_ids["$name"]=$id
-  echo "✔ $name (id: $id)"
+  echo "✔ Created $name (id: $id)"
+
+  image_file="${image_files[$name]}"
+  if [[ -n "$image_file" && -f "../images/$image_file" ]]; then
+    status_code=$(upload_image "$id" "../images/$image_file")
+    if [[ "$status_code" == "200" ]]; then
+      echo "✔ Uploaded image for $name"
+    else
+      echo "✘ Failed to upload image for $name (HTTP $status_code)"
+    fi
+  else
+    echo "⚠ No image file found for $name"
+  fi
 done
 
 create_meal() {
@@ -97,12 +143,13 @@ declare -A meals
 meals["Déjeuner poulet riz"]="Poulet 150,Riz blanc 100,Haricots verts 100"
 meals["Petit dej complet"]="Pain complet 60,Oeuf 100,Yaourt nature 125"
 meals["Salade avocat quinoa"]="Avocat 50,Quinoa cuit 100,Tomates 80,Poivrons 50"
-meals["Dîner léger"]="Lentilles cuites 150,Carottes râpées 80,Fromage 30"
+meals["Dîner léger"]="Lentilles cuites 150,Carottes râpées 80,Fromage Blanc 30"
 meals["Pâtes saumon"]="Pâtes cuites 120,Saumon 100,Courgettes 100"
 meals["Tofu quinoa légumes"]="Tofu 100,Quinoa cuit 100,Poivrons 60,Courgettes 80"
 meals["Collation fruits"]="Banane 100,Pomme 100"
 
 echo "🥗 Creating meals..."
+
 for meal_name in "${!meals[@]}"; do
   IFS=',' read -ra items <<< "${meals[$meal_name]}"
   meal_items_json="["
