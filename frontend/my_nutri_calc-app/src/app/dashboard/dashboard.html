@@ -1,1 +1,75 @@
-<p>dashboard works!</p>
+<div class="header">
+  <div class="app-info">
+    <mat-icon>eco</mat-icon>
+    <span class="app-name">MyNutriCalc</span>
+  </div>
+
+  <div class="greeting">
+    Bonjour {{ user?.username }}
+  </div>
+
+  <div class="profile-menu">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="goToProfile()">
+        <mat-icon>person</mat-icon>
+        Profil
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Déconnexion
+      </button>
+    </mat-menu>
+  </div>
+</div>
+
+<div class="macros">
+    <h2>Macros du jour</h2>
+  <div class="macro-card protein">
+    <h3>Protéines ({{ macrosPercent.protein }}%)</h3>
+    <p>{{ totalMacros.protein | number:'1.0-0' }} g</p>
+  </div>
+  <div class="macro-card carbs">
+    <h3>Glucides ({{ macrosPercent.carbs }}%)</h3>
+    <p>{{ totalMacros.carbs | number:'1.0-0' }} g</p>
+  </div>
+  <div class="macro-card fat">
+    <h3>Lipides ({{ macrosPercent.fat }}%)</h3>
+    <p>{{ totalMacros.fat | number:'1.0-0' }} g</p>
+  </div>
+  <div class="macro-card calories">
+    <h3>Calories</h3>
+    <p>{{ totalMacros.calories | number:'1.0-0' }} kcal</p>
+  </div>
+</div>
+
+<div class="entries">
+  <h2>Repas du jour</h2>
+  <table class="meals-table" *ngIf="todayEntries.length > 0; else noMeals">
+    <thead>
+      <tr>
+        <th>Repas</th>
+        <th class="protein">Protéines (g)</th>
+        <th class="carbs">Glucides (g)</th>
+        <th class="fat">Lipides (g)</th>
+        <th class="calories">Calories (kcal)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let entry of todayEntries">
+        <tr *ngFor="let meal of entry.meals">
+          <td>{{ meal.name }}</td>
+          <td class="protein">{{ meal.totalNutrition.proteins | number:'1.0-0' }}</td>
+          <td class="carbs">{{ meal.totalNutrition.carbs | number:'1.0-0' }}</td>
+          <td class="fat">{{ meal.totalNutrition.fats | number:'1.0-0' }}</td>
+          <td class="calories">{{ meal.totalNutrition.calories | number:'1.0-0' }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <ng-template #noMeals>
+    <p>Aucun repas enregistré pour aujourd'hui.</p>
+  </ng-template>
+</div>
