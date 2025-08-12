@@ -25,6 +25,12 @@
       padding: 8px;
       border-radius: 4px;
       border: 1px solid #ccc;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #4caf50;
+        outline: none;
+      }
     }
   }
 
@@ -37,15 +43,52 @@
     font-size: 16px;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background: #45a049;
+    }
+
+    &:disabled {
+      background: #a5d6a7;
+      cursor: not-allowed;
     }
   }
 
   .error {
-    margin-top: 10px;
-    color: red;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #ffcccc;      // rouge clair
+    border: 1.5px solid #ff0000;   // rouge vif
+    color: #a70000;
+    font-weight: 700;
     text-align: center;
+    border-radius: 6px;
+    animation: pulse 1.5s infinite ease-in-out;
+    box-shadow: 0 0 8px rgba(255,0,0,0.3);
+  }
+
+  .no-account {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 600;
+
+    a {
+      color: #4caf50;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(255,0,0,0.3);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(255,0,0,0.6);
   }
 }

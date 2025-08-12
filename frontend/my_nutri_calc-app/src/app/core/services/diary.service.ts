@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import type { DiaryEntry } from '../models/diary.model';
+import { environment } from '../../environnements/environnement';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DiaryService {
-  private apiUrl = 'http://localhost:8080/api/diary';
+  private apiUrl = environment.apiBaseUrl + '/diary';
 
   constructor(private http: HttpClient) {}
 

@@ -12,8 +12,14 @@
       <input id="password" type="password" [(ngModel)]="password" name="password" required />
     </div>
 
-    <button type="submit">Se connecter</button>
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Connexion...' : 'Se connecter' }}
+    </button>
   </form>
+
+  <p class="no-account">
+    Pas de compte ? <a routerLink="/register">Inscrivez-vous</a>
+  </p>
 
   <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
 </div>
