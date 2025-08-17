@@ -1,0 +1,33 @@
+<nav class="navbar">
+  <!-- Logo -->
+  <div class="logo" (click)="navigateTo('/dashboard')">
+    <mat-icon>fitness_center</mat-icon>
+    <span>NutriTrack</span>
+  </div>
+
+  <!-- Liens centraux -->
+  <div class="nav-links">
+    <button mat-button (click)="navigateTo('/dashboard')">Dashboard</button>
+    <button mat-button (click)="navigateTo('/diary')">Journal</button>
+    <button mat-button (click)="navigateTo('/meals')">Repas</button>
+    <button mat-button (click)="navigateTo('/foods')">Aliments</button>
+  </div>
+
+  <!-- Profil à droite -->
+  <div class="profile-menu">
+    <span class="username">Bonjour {{ user?.username }}</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="goToProfile()">
+        <mat-icon>person</mat-icon>
+        Profil
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Déconnexion
+      </button>
+    </mat-menu>
+  </div>
+</nav>

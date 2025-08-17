@@ -1,0 +1,43 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2e7d32; // vert comme ton bandeau
+  color: white;
+  padding: 0.5rem 1rem;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    mat-icon {
+      margin-right: 0.3rem;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      color: white;
+    }
+  }
+
+  .profile-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .username {
+      font-size: 0.9rem;
+    }
+
+    mat-icon {
+      color: white;
+    }
+  }
+}

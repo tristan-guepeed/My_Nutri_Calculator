@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{ isEditing ? 'Modifier un aliment' : 'Ajouter un aliment' }}</h2>
+
+<mat-dialog-content [formGroup]="foodForm" class="dialog-content">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Nom</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Protéines</mat-label>
+    <input matInput type="number" formControlName="proteins" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Glucides</mat-label>
+    <input matInput type="number" formControlName="carbs" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Lipides</mat-label>
+    <input matInput type="number" formControlName="fats" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Calories</mat-label>
+    <input matInput type="number" formControlName="calories" />
+  </mat-form-field>
+
+  <div class="file-upload">
+    <label for="fileInput">Image :</label>
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" />
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Annuler</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="foodForm.invalid">
+    {{ isEditing ? 'Mettre à jour' : 'Ajouter' }}
+  </button>
+</mat-dialog-actions>

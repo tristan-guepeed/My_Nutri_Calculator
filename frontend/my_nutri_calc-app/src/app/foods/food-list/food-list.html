@@ -1,1 +1,66 @@
-<p>food-list works!</p>
+<!-- Navbar -->
+<div class="navbar">
+  <div class="logo" (click)="router.navigate(['/dashboard'])">
+    <mat-icon>eco</mat-icon>
+    <span>MyNutriCalc</span>
+  </div>
+  <div class="nav-links">
+    <button mat-button (click)="router.navigate(['/foods'])">Aliments</button>
+    <button mat-button (click)="router.navigate(['/meals'])">Repas</button>
+    <button mat-button (click)="router.navigate(['/diary'])">Journal</button>
+    <button mat-button (click)="router.navigate(['/dashboard'])">Dashboard</button>
+  </div>
+  <div class="profile-menu">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="goToProfile()">
+        <mat-icon>person</mat-icon> Profil
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon> Déconnexion
+      </button>
+    </mat-menu>
+  </div>
+</div>
+
+<div class="page-container" *ngIf="user">
+  <!-- Titre -->
+  <div class="header">
+    <h1>Mes aliments</h1>
+  </div>
+
+  <!-- Barre de recherche + bouton + -->
+  <div class="search-add-bar">
+    <mat-form-field appearance="outline">
+      <mat-label>Rechercher un aliment</mat-label>
+      <input matInput [(ngModel)]="searchQuery" (input)="applyFilter()">
+    </mat-form-field>
+
+    <button mat-fab color="primary" (click)="openAddDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <!-- Liste des aliments -->
+  <div class="foods-list">
+    <mat-card *ngFor="let food of filteredFoods" class="food-card">
+      <img [src]="getImage(food)" alt="{{ food.name }}">
+      <h3>{{ food.name }}</h3>
+      <p class="protein">Protéines: {{ food.ni.proteins }} g</p>
+      <p class="carbs">Glucides: {{ food.ni.carbs }} g</p>
+      <p class="fat">Lipides: {{ food.ni.fats }} g</p>
+      <p class="calories">Calories: {{ food.ni.calories }} kcal</p>
+
+      <div class="food-actions">
+        <button mat-icon-button color="primary" (click)="openEditDialog(food)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteFood(food.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-card>
+  </div>
+</div>

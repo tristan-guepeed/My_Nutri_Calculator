@@ -5,7 +5,7 @@ import { DiaryService } from '../core/services/diary.service';
 import { Router } from '@angular/router';
 import { User } from '../core/models/user.model';
 import { DiaryEntry } from '../core/models/diary.model';
-import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss'],
   standalone: true,
-  imports: [DecimalPipe, CommonModule, MatIconModule, MatMenuModule, MatButtonModule]
+  imports: [CommonModule, MatIconModule, MatMenuModule, MatButtonModule]
 })
 export class DashboardComponent implements OnInit {
   user?: User;
@@ -36,9 +36,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadUser(): void {
-    this.userService.getCurrentUser().subscribe(u => {
-      this.user = u;
-    });
+    this.userService.getCurrentUser().subscribe(u => this.user = u);
   }
 
   loadTodayEntries(): void {
@@ -64,19 +62,20 @@ export class DashboardComponent implements OnInit {
     if (totalMacroGrams > 0) {
       this.macrosPercent.protein = Math.round((this.totalMacros.protein / totalMacroGrams) * 100);
       this.macrosPercent.carbs = Math.round((this.totalMacros.carbs / totalMacroGrams) * 100);
-      this.macrosPercent.fat = 100 - this.macrosPercent.protein - this.macrosPercent.carbs; // pour garder total à 100%
+      this.macrosPercent.fat = 100 - this.macrosPercent.protein - this.macrosPercent.carbs;
     } else {
       this.macrosPercent = { protein: 0, carbs: 0, fat: 0 };
     }
   }
 
+  goToDashboard(): void { this.router.navigate(['/dashboard']); }
+  goToFoods(): void { this.router.navigate(['/foods']); }
+  goToMeals(): void { this.router.navigate(['/meals']); }
+  goToDiary(): void { this.router.navigate(['/diary']); }
+  goToProfile(): void { this.router.navigate(['/profile']); }
+
   logout(): void {
-    this.authService.logout();
+    this.authService.logout(); // supprime token
     this.router.navigate(['/login']);
   }
-
-  goToProfile(): void {
-    this.router.navigate(['/profile']);
-  }
 }
-

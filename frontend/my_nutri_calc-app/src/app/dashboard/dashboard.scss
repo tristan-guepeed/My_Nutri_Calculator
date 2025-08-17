@@ -1,3 +1,4 @@
+/* NAVBAR */
 .header {
   background-color: #4caf50;
   color: white;
@@ -5,31 +6,42 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.7rem 1.5rem;
-}
 
-.app-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  .app-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
 
-  .app-name {
-    font-size: 1.2rem;
-    font-weight: bold;
+    .app-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      color: white;
+      font-weight: 500;
+    }
+  }
+
+  .profile-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .greeting {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
   }
 }
 
-.greeting {
-  font-size: 1.1rem;
-  font-weight: 500;
-  text-align: center;
-  flex-grow: 1;
-}
-
-.profile-menu {
-  display: flex;
-  align-items: center;
-}
-
+/* MACROS */
 .macros {
   display: flex;
   gap: 1rem;
@@ -54,37 +66,25 @@
     }
   }
 
-  .protein {
-    background-color: #2e7d32;
-  }
-
-  .carbs {
-    background-color: #0277bd;
-  }
-
-  .fat {
-    background-color: #ff9800;
-    color: black;
-  }
-
-  .calories {
-    background-color: #d32f2f;
-  }
+  .protein { background-color: #2e7d32; }
+  .carbs { background-color: #0277bd; }
+  .fat { background-color: #ff9800; color: black; }
+  .calories { background-color: #d32f2f; }
 }
 
+/* TABLEAU REPAS DU JOUR */
 .entries {
   margin: 1rem;
-  margin-top: 4rem;
+  margin-top: 2rem;
 
   h2 {
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   .meals-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
 
     th, td {
       padding: 0.6rem 1rem;
@@ -93,43 +93,40 @@
     }
 
     thead {
-      background-color: #e0f2f1;
+      background-color: #e3f2fd;
 
-      th.protein {
-        background-color: #2e7d32;
-        color: white;
-      }
-      th.carbs {
-        background-color: #0277bd;
-        color: white;
-      }
-      th.fat {
-        background-color: #ff9800;
-        color: black;
-      }
-      th.calories {
-        background-color: #d32f2f;
-        color: white;
-      }
+      th.protein { background-color: #2e7d32; color: white; }
+      th.carbs { background-color: #0277bd; color: white; }
+      th.fat { background-color: #ff9800; color: black; }
+      th.calories { background-color: #d32f2f; color: white; }
     }
 
     tbody {
-      tr:hover {
-        background-color: #f5f5f5;
-      }
+      tr:hover { background-color: #f5f5f5; }
 
-      td.protein {
-        background-color: #a5d6a7;
-      }
-      td.carbs {
-        background-color: #81d4fa;
-      }
-      td.fat {
-        background-color: #ffcc80;
-      }
-      td.calories {
-        background-color: #ef9a9a;
-      }
+      td.protein { background-color: #a5d6a7; }
+      td.carbs { background-color: #81d4fa; }
+      td.fat { background-color: #ffcc80; }
+      td.calories { background-color: #ef9a9a; }
     }
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    .nav-links {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  }
+
+  .macros {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }

@@ -1,0 +1,24 @@
+.full-width {
+  width: 100%;
+}
+
+.nutrition-inputs {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+
+  mat-form-field {
+    flex: 1 1 100px;
+  }
+}
+
+.image-input {
+  margin: 1rem 0;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}

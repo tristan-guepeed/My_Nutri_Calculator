@@ -1,14 +1,18 @@
+<!-- NAVBAR -->
 <div class="header">
-  <div class="app-info">
+  <div class="app-info" (click)="goToDashboard()">
     <mat-icon>eco</mat-icon>
     <span class="app-name">MyNutriCalc</span>
   </div>
 
-  <div class="greeting">
-    Bonjour {{ user?.username }}
+  <div class="nav-links">
+    <button mat-button (click)="goToFoods()">Aliments</button>
+    <button mat-button (click)="goToMeals()">Repas</button>
+    <button mat-button (click)="goToDiary()">Journal</button>
   </div>
 
   <div class="profile-menu">
+    <span class="greeting">Bonjour {{ user?.username }}</span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>account_circle</mat-icon>
     </button>
@@ -25,8 +29,9 @@
   </div>
 </div>
 
+<!-- MACROS DU JOUR -->
 <div class="macros">
-    <h2>Macros du jour</h2>
+  <h2>Macros du jour</h2>
   <div class="macro-card protein">
     <h3>Protéines ({{ macrosPercent.protein }}%)</h3>
     <p>{{ totalMacros.protein | number:'1.0-0' }} g</p>
@@ -45,6 +50,7 @@
   </div>
 </div>
 
+<!-- REPAS DU JOUR -->
 <div class="entries">
   <h2>Repas du jour</h2>
   <table class="meals-table" *ngIf="todayEntries.length > 0; else noMeals">

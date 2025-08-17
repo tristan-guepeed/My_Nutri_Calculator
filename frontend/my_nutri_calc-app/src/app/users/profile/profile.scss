@@ -1,0 +1,21 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.profile-card {
+  width: 450px;
+  padding: 1rem;
+}
+
+.profile-icon {
+  font-size: 60px;
+  color: #1976d2;
+  margin-right: 0.5rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
